@@ -1,0 +1,17 @@
+konsonanter = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z"]
+vokaler = ["a","e","i","o","u"]
+x = raw_input("What do you want to translate?")
+y = list(x)
+translation = ""
+
+for letter in y:
+    z = letter
+    for konsonant in konsonanter:
+        if z == konsonant:
+            translation = translation + konsonant + "o" + konsonant
+    else:
+        for vokal in vokaler:
+            if z == vokal:
+                translation = translation + vokal
+
+print translation
