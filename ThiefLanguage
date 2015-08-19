@@ -6,6 +6,8 @@ translation = ""
 
 for letter in y:
     z = letter
+    if z == " ":
+        translation = translation + z
     for konsonant in konsonanter:
         if z == konsonant:
             translation = translation + konsonant + "o" + konsonant
