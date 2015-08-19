@@ -1,5 +1,6 @@
-konsonanter = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z"]
-vokaler = ["a","e","i","o","u"]
+konsonanter = ["b","B","c","C","d","D","f","F","G","g","H","h","J","j","K","k","L","l","M"
+    ,"m","N","n","P","p","Q","q","R","r","S","s","T","t","V","v","W","w","X","x","Y","y","Z","z"]
+vokaler = ["A","a","E","e","I","i","O","o","U","u"]
 x = raw_input("What do you want to translate?")
 y = list(x)
 translation = ""
