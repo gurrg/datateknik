@@ -1,0 +1,77 @@
+module BlackJack where
+
+import Cards
+import Wrapper
+
+hand2 = Add (Card (Numeric 2) Hearts)
+       (Add (Card Jack Spades) Empty)
+
+-- TASK A
+
+-- size hand2
+-- = size (Add (Card (Numeric 2) Hearts) (Add (Card Jack Spades) Empty))
+-- = 1 + size (Add (Card Jack Spades) Empty)
+-- = 1 + 1 + size (Empty)
+-- = 1 + 1 + 0
+-- = 2
+
+aCard1 :: Card
+aCard1 = Card Ace Spades
+
+aCard2 :: Card
+aCard2 = Card King Hearts
+
+aHand :: Hand
+aHand = Add aCard1 (Add aCard2 Empty)
+
+--TASK B
+
+--Returns the blackjack value of a rank.
+valueRank :: Rank -> Integer
+valueRank Ace         = 11
+valueRank (Numeric n) = n
+valueRank _ = 10
+
+--Same as above with a card.
+valueCard :: Card -> Integer
+valueCard (Card rank _) = valueRank rank
+
+--Finds the amout of aces in a hand.
+nbrOfAces :: Hand -> Integer
+nbrOfAces Empty = 0
+nbrOfAces (Add card hand) = if rank card == Ace 
+                            then 1 + nbrOfAces hand
+                            else nbrOfAces hand
+
+--Calculates the value of a hand.
+valueHand :: Hand -> Integer
+valueHand Empty = 0
+valueHand (Add card hand) = valueCard card + valueHand hand
+
+--Calculates the blackjack value of a hand.
+value :: Hand -> Integer
+value x = if nbrOfAces x <= 1
+          then valueHand x
+          else (valueHand x) - ((nbrOfAces x) * 10)
+
+--Checks if a hand is bust.
+gameOver :: Hand -> Bool
+gameOver x = value x > 21
+
+--Decides the winner
+winner :: Hand -> Hand -> Player
+winner guestHand bankHand
+ | gameOver guestHand                = Bank
+ | value guestHand == value bankHand = Bank
+ | (value guestHand < value bankHand)
+   && not(gameOver bankHand)         = Bank
+ | otherwise                         = Guest
+
+
+--TASK C
+{-
+(<+) :: Hand -> Hand -> Hand
+(<+) Empty hand2 = hand2
+(<+) hand1 Empty = hand1
+(<+) (Add card hand) (Add card1 hand1) =
+-}
